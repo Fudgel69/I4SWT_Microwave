@@ -57,7 +57,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CookControllerToDisplay.cs" />
     <Compile Include="CookControllerToOther.cs" />
+    <Compile Include="CookControllerToPowertube.cs" />
+    <Compile Include="CookControllerToTimer.cs" />
     <Compile Include="DisplayToOutput.cs" />
     <Compile Include="LightToOutput.cs" />
     <Compile Include="PowerTubeToOutput.cs" />
