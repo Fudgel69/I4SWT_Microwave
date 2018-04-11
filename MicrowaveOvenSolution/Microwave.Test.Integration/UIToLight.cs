@@ -1,5 +1,8 @@
 ﻿using System;
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
 using MicrowaveOvenClasses.Interfaces;
@@ -9,31 +12,35 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class LightToOutput
+    class UIToLight
     {
 
-        private IOutput _output;
         private ILight _light;
+        private IOutput _output;
 
         [SetUp]
         public void SetUp()
         {
-            _output = new Output();
+            //Substitude
+            _output = Substitute.For<IOutput>();
+
+            //Light
             _light = new Light(_output);
         }
 
-        //Tændes lyset vil output bestå af "on"
+        //LightOn
+        //Tænd lyset, og se om "on" bliver vist
         [Test]
-        public void TurnLightOn_OutputsOn()
+        public void Light_OffToOn()
         {
             _light.TurnOn();
             Assert.That(_light.LightISON, Is.EqualTo(true));
-
         }
 
-        //Slukkes lyset vil output bestå af "off"
+        //LightOff
+        //Tænd lyset, og se om "off" bliver vist
         [Test]
-        public void TurnLightOff_OutputsOff()
+        public void Light_OnToOff()
         {
             _light.TurnOff();
             Assert.That(_light.LightISON, Is.EqualTo(false));

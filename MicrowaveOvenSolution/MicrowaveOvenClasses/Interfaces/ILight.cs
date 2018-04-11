@@ -10,5 +10,6 @@ namespace MicrowaveOvenClasses.Interfaces
     {
         void TurnOn();
         void TurnOff();
+        bool LightISON { get; }
     }
 }

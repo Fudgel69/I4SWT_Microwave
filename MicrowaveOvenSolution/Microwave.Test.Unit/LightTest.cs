@@ -49,7 +49,5 @@ namespace Microwave.Test.Unit
             output.DidNotReceive().OutputLine(Arg.Is<string>(str => str.Contains("off")));
         }
 
-
-
     }
 }
