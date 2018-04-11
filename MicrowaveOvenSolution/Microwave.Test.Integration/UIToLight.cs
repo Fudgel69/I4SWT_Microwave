@@ -21,8 +21,8 @@ namespace Microwave.Test.Integration
         [SetUp]
         public void SetUp()
         {
-            //Substitude
-            _output = Substitute.For<IOutput>();
+            //Output
+            _output = new Output();
 
             //Light
             _light = new Light(_output);

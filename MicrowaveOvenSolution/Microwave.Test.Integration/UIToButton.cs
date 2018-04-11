@@ -101,9 +101,11 @@ namespace Microwave.Test.Integration
         [Test]
         public void Cooking_StopCookingCancelButtonIsPressed()
         {
+            
             _powerButton.Press();
             _timeButton.Press();
             _startCancelButton.Press();
+            Assert.That(_powerTube.ISON, Is.EqualTo(true));
             _startCancelButton.Press();
             Assert.That(_powerTube.ISON, Is.EqualTo(false));
         }
