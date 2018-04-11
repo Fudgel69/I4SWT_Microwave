@@ -13,7 +13,7 @@ using Timer = MicrowaveOvenClasses.Boundary.Timer;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class CookControllerToOther
+    public class IT5CookControllerToPowertube
     {
 
         private IOutput _output;
@@ -26,13 +26,13 @@ namespace Microwave.Test.Integration
         public void SetUp()
         {
             _output = new Output();
-            _display = new Display(_output);
-            _powerTube = new PowerTube(_output);
+            _display = Substitute.For<IDisplay>();
             _timer = new Timer();
+
+            _powerTube = new PowerTube(_output);
+
             _cookController = new CookController(_timer, _display, _powerTube);
         }
-
-        #region PowerTube
 
         //StartCooking tænder for PowerTube
         [Test]
@@ -74,56 +74,6 @@ namespace Microwave.Test.Integration
         {
             Assert.Throws<System.ArgumentOutOfRangeException>(() => _cookController.StartCooking(powerPercent, 5));
         }
-
-        #endregion
-
-        #region Timer
-
-        //StartCooking starter en timer
-        [Test]
-        public void StartCooking_StartsTimer()
-        {
-            _cookController.StartCooking(50, 50);
-            Assert.That(_timer.TIMER.Enabled, Is.EqualTo(true));
-        }
-
-        //stop stopper timeren
-        [Test]
-        public void StopCooking_StopsTimer()
-        {
-            _cookController.StartCooking(50, 50);
-            _cookController.Stop();
-            Assert.That(_timer.TIMER.Enabled, Is.EqualTo(false));
-        }
-
-
-
-        #endregion
-
-        //Efter et sekund, vil et sekund mindre en forrige blive vist som output
-        [TestCase(50)]
-        [TestCase(37)]
-        public void StartCooking_OneSecondPasses_DisplaySecondLess(int sec)
-        {
-            _cookController.StartCooking(99, sec);
-            Thread.Sleep(1000);
-            _output.OutputLine(Arg.Is<string>(str => str.Contains($"00:{sec - 1}")));
-        }
-
-        #region Display
-
-
-        //StartCooking outputter wattprocenten
-        [TestCase(100)]
-        [TestCase(50)]
-        public void StartCooking_OutputsPower(int powerPercent)
-        {
-            _cookController.StartCooking(powerPercent, 5);
-            _output.OutputLine(Arg.Is<string>(str => str.Contains($"{powerPercent} %")));
-        }
-
-        #endregion
-
 
     }
 }

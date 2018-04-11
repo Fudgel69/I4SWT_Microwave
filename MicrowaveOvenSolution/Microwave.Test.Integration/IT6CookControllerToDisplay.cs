@@ -13,7 +13,7 @@ using Timer = MicrowaveOvenClasses.Boundary.Timer;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class CookControllerToDisplay
+    public class IT6CookControllerToDisplay
     {
 
         private IOutput _output;
@@ -25,9 +25,9 @@ namespace Microwave.Test.Integration
         [SetUp]
         public void SetUp()
         {
-            _output = Substitute.For<IOutput>();
-            _powerTube = Substitute.For<IPowerTube>();
-            _timer = Substitute.For<ITimer>();
+            _output = new Output();
+            _powerTube = new PowerTube(_output);
+            _timer = new Timer();
 
             _display = new Display(_output);
 

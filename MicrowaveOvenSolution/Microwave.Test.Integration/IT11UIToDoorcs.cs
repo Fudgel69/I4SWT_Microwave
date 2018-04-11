@@ -12,8 +12,10 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    class UIToDoorcs
+    class IT11UIToDoorcs
     {
+        private Output _output;
+        
         //Button
         private IButton _powerButton;
         private IButton _timeButton;
@@ -26,14 +28,16 @@ namespace Microwave.Test.Integration
         [SetUp]
         public void SetUp()
         {
-            //Door
+            //UI Entities
+            _output = new Output();
             _door = new Door();
 
-            //Substitutes
-            _powerTube = Substitute.For<IPowerTube>();
-            _powerButton = Substitute.For<IButton>();
-            _timeButton = Substitute.For<IButton>();
-            _startCancelButton = Substitute.For<IButton>();
+            _powerTube = new PowerTube(_output);
+
+            //Buttons
+            _powerButton = new Button();
+            _timeButton = new Button();
+            _startCancelButton = new Button();
         }
 
         //tænd program, åben dør, og se om programmet stopper

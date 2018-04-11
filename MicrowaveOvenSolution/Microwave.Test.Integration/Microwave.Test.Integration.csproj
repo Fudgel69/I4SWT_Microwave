@@ -57,19 +57,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CookControllerToDisplay.cs" />
-    <Compile Include="CookControllerToOther.cs" />
-    <Compile Include="CookControllerToPowertube.cs" />
-    <Compile Include="CookControllerToTimer.cs" />
-    <Compile Include="DisplayToOutput.cs" />
-    <Compile Include="LightToOutput.cs" />
-    <Compile Include="PowerTubeToOutput.cs" />
+    <Compile Include="IT6CookControllerToDisplay.cs" />
+    <Compile Include="IT5CookControllerToPowertube.cs" />
+    <Compile Include="IT4CookControllerToTimer.cs" />
+    <Compile Include="IT2DisplayToOutput.cs" />
+    <Compile Include="IT1LightToOutput.cs" />
+    <Compile Include="IT3PowerTubeToOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UIToButton.cs" />
-    <Compile Include="UIToDisplay.cs" />
-    <Compile Include="UIToDoorcs.cs" />
-    <Compile Include="UIToLight.cs" />
-    <Compile Include="UIToOther.cs" />
+    <Compile Include="IT10UIToButton.cs" />
+    <Compile Include="IT8UIToDisplay.cs" />
+    <Compile Include="IT11UIToDoorcs.cs" />
+    <Compile Include="IT7UIToLight.cs" />
+    <Compile Include="IT9UIToOther.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MicrowaveOvenClasses\MicrowaveOvenClasses.csproj">

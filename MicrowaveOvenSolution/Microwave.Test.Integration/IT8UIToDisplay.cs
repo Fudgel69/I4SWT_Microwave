@@ -12,7 +12,7 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    class UIToDisplay
+    class IT8UIToDisplay
     {
 
         private UserInterface _userInterface;
@@ -39,6 +39,7 @@ namespace Microwave.Test.Integration
         {
             _output = new Output();
             _display = new Display(_output);
+            _light = new Light(_output);
 
             //Substitudes    
             _powerButton = Substitute.For<IButton>();
@@ -46,12 +47,9 @@ namespace Microwave.Test.Integration
             _startCancelButton = Substitute.For<IButton>();
             _timer = Substitute.For<ITimer>();
             _door = Substitute.For<IDoor>();
-            _light = Substitute.For<ILight>();
-
-            //CookController Entities
-            _powerTube = new PowerTube(_output);
-            _cooker = new CookController(_timer, _display, _powerTube);
-
+            _powerTube = Substitute.For<IPowerTube>();
+            _cooker = Substitute.For<CookController>(_timer, _display, _powerTube);
+           
             //Userinterface
             _userInterface = new UserInterface(
                 _powerButton,

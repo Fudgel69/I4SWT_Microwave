@@ -12,7 +12,7 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    class UIToLight
+    class IT7UIToLight
     {
 
         private ILight _light;

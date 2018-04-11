@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class LightToOutput
+    public class IT1LightToOutput
     {
 
         private IOutput _output;
