@@ -14,29 +14,55 @@ namespace Microwave.Test.Integration
     [TestFixture]
     class UIToButton
     {
+        private UserInterface _userInterface;
+
         //Button
         private IButton _powerButton;
         private IButton _timeButton;
         private IButton _startCancelButton;
-
-        private IDisplay _display;
-        private IOutput _output;
+        
+        //CookControler
         private IPowerTube _powerTube;
+        private ITimer _timer;
+
+        //Userinterface
+        private IOutput _output;
+        private IDoor _door;
+        private IDisplay _display;
+        private ILight _light;
+        private ICookController _cooker;
+
 
         [SetUp]
         public void SetUp()
         {
-            //Button
+            _output = new Output();
+
+            //Buttons
             _powerButton = new Button();
             _timeButton = new Button();
             _startCancelButton = new Button();
 
-            //Substitutes
-            _output = Substitute.For<IOutput>();
-            _powerTube = Substitute.For<IPowerTube>();
-            _display = Substitute.For<IDisplay>(_output);
-        }
+            //Substitudes    
+            _timer = Substitute.For<ITimer>();
+            _door = Substitute.For<IDoor>();
+            _display = Substitute.For<IDisplay>();
+            _light = Substitute.For<ILight>();
 
+            //CookController Entities
+            _powerTube = new PowerTube(_output);
+            _cooker = new CookController(_timer, _display, _powerTube);
+
+            //Userinterface
+            _userInterface = new UserInterface(
+                _powerButton, 
+                _timeButton, 
+                _startCancelButton,
+                _door, 
+                _display, 
+                _light, 
+                _cooker);
+        }
 
         //PowerButton
         //tryk på power, og se om display viser det rigtige

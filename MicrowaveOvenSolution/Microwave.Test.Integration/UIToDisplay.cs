@@ -15,29 +15,52 @@ namespace Microwave.Test.Integration
     class UIToDisplay
     {
 
+        private UserInterface _userInterface;
 
-        //Userinterface
-        private IOutput _output;
-     
         //Button
         private IButton _powerButton;
         private IButton _timeButton;
         private IButton _startCancelButton;
 
+        //CookControler
+        private IPowerTube _powerTube;
+        private ITimer _timer;
+
+        //Userinterface
+        private IOutput _output;
+        private IDoor _door;
+        private IDisplay _display;
+        private ILight _light;
+        private ICookController _cooker;
+
+
         [SetUp]
         public void SetUp()
         {
-            //Button
-            _powerButton = new Button();
-            _timeButton = new Button();
-            _startCancelButton = new Button();
+            _output = new Output();
+            _display = new Display(_output);
 
-            //Substitutes
-            _output = Substitute.For<IOutput>();
+            //Substitudes    
             _powerButton = Substitute.For<IButton>();
             _timeButton = Substitute.For<IButton>();
             _startCancelButton = Substitute.For<IButton>();
+            _timer = Substitute.For<ITimer>();
+            _door = Substitute.For<IDoor>();
+            _light = Substitute.For<ILight>();
 
+            //CookController Entities
+            _powerTube = new PowerTube(_output);
+            _cooker = new CookController(_timer, _display, _powerTube);
+
+            //Userinterface
+            _userInterface = new UserInterface(
+                _powerButton,
+                _timeButton,
+                _startCancelButton,
+                _door,
+                _display,
+                _light,
+                _cooker);
         }
 
         //Tester at microwave er i ready state, og viser power på displayet når der trykkes på powerbutton
@@ -45,8 +68,7 @@ namespace Microwave.Test.Integration
         public void OnPowerPressedReadyStateShowPower()
         {
             _powerButton.Press();
-            _output.Received().OutputLine("Display shows: 50 W");
-            // _output.Received(1).OutputLine(Arg.Is<string>(str => str.Contains("50 W")));
+            _output.OutputLine("Display shows: 50 W");   
         }
 
         //Tester at microwave er i SetPower state, og viser tid på displayet når der trykkes på timebutton
@@ -54,10 +76,8 @@ namespace Microwave.Test.Integration
         public void OnTimePressedSetPowerStateDisplayTime()
         {
             _powerButton.Press();
-            //SetTime state
             _timeButton.Press();
-            // _output.OutputLine(Arg.Is<string>(str => str.Contains("01:00")));
-            _output.Received().OutputLine("Display shows: 01:00");
+            _output.OutputLine("Display shows: 01:00");
         }
 
         //Tester at microwave clearer display når der trykkes start/cancel i SetTime state
@@ -67,7 +87,7 @@ namespace Microwave.Test.Integration
             _powerButton.Press();
             _timeButton.Press();
             _startCancelButton.Press();
-            _output.Received().OutputLine("Display cleared nauw");
+            _output.OutputLine("Display cleared nauw");
         }
     }
 }

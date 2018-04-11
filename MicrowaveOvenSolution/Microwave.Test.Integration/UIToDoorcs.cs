@@ -26,11 +26,6 @@ namespace Microwave.Test.Integration
         [SetUp]
         public void SetUp()
         {
-            //Button
-            _powerButton = new Button();
-            _timeButton = new Button();
-            _startCancelButton = new Button();
-
             //Door
             _door = new Door();
 
