@@ -25,9 +25,9 @@ namespace Microwave.Test.Integration
         [SetUp]
         public void SetUp()
         {
-            _output = new Output();
-            _display = new Display(_output);
-            _powerTube = new PowerTube(_output);
+            _output = Substitute.For<IOutput>(); ;
+            _display = Substitute.For<IDisplay>();;
+            _powerTube = Substitute.For<IPowerTube>();
             _timer = new Timer();
             _cookController = new CookController(_timer, _display, _powerTube);
         }
